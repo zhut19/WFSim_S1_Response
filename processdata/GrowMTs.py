@@ -44,13 +44,14 @@ m.get_run_number = get_run_number
 
 
 def init_core(run_number):
+    user = getpass.getuser()
     core_processor = core.Processor(
         config_names=['_base', 'XENON1T'],
         just_testing=False,
         config_dict={
             'pax':{
-                'input_name' : '/dali/lgrandi/zhut/sim/pax_data/XENON1T_MC_%s'%run_number,
-                'output_name': '/dali/lgrandi/zhut/sim/pax_data/processed/%s'%run_number,
+                'input_name' : '/dali/lgrandi/%s/sim/pax_data/XENON1T_MC_%s'%(user, run_number),
+                'output_name': '/dali/lgrandi/%s/sim/pax_data/processed/%s'%(user, run_number),
                 'look_for_config_in_runs_db': False},
             'MC':{
                 'mc_generated_data': True,
@@ -121,5 +122,3 @@ if __name__ == '__main__':
     with open('/dali/lgrandi/zhut/minitrees/pax_s1b_tb/%s_HitPerPE'%name, 'wb') as f:
         result = zlib.compress(result, 4)
         f.write(result)
-
-
